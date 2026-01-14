@@ -2,8 +2,24 @@
 
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
+import { postUser } from "../actions/server/auth";
+import { useRouter } from "next/navigation";
 
 const RegisterPage = () => {
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const values = Object.fromEntries(formData.entries());
+
+    const result = await postUser(values);
+    if (result?.acknowledged) {
+      alert("User registered successfully");
+      router.push("/login");
+    }
+  };
+
   return (
     <div className="mx-auto min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-white rounded-xl shadow p-8">
@@ -11,26 +27,32 @@ const RegisterPage = () => {
           Register
         </h2>
 
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <input
+            name="name"
             type="text"
             placeholder="Full Name"
             className="w-full border rounded-md px-4 py-2 border-gray-500 text-gray-600 focus:outline-none focus:ring-2 focus:ring-primary"
           />
 
           <input
+            name="email"
             type="email"
             placeholder="Email"
             className="w-full border rounded-md px-4 py-2 border-gray-500 text-gray-600 focus:outline-none focus:ring-2 focus:ring-primary"
           />
 
           <input
+            name="password"
             type="password"
             placeholder="Password"
             className="w-full border rounded-md px-4 py-2 border-gray-500 text-gray-600 focus:outline-none focus:ring-2 focus:ring-primary"
           />
 
-          <button className="w-full bg-primary text-white py-2 rounded-md hover:opacity-90">
+          <button
+            type="submit"
+            className="w-full bg-primary text-white py-2 rounded-md hover:opacity-90"
+          >
             Create Account
           </button>
         </form>
