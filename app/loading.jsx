@@ -1,0 +1,15 @@
+import React from "react";
+import Logo from "./components/layouts/Logo";
+
+const Loading = () => {
+  return (
+    <div className="mx-auto flex flex-col min-h-screen justify-center items-center gap-5">
+      <h2 className="text-5xl font-bold animate-pulse">Loading...</h2>
+      <div className="animate-ping">
+        <Logo />
+      </div>
+    </div>
+  );
+};
+
+export default Loading;
