@@ -26,3 +26,18 @@ export const postUser = async (user) => {
   if (result.insertedId)
     return { ...newUser, insertedId: result.insertedId.toString() };
 };
+
+export const loginUser = async (user) => {
+  const { email, password } = user;
+  //check payload
+  if (!email || !password) return null;
+
+  //check user
+  const isExist = await dbConnect(collections.USERS).findOne({ email });
+  if (!isExist) return null;
+
+  //check password
+  const isPasswordValid = await bcrypt.compare(password, isExist.password);
+  if (!isPasswordValid) return null;
+  else return isExist;
+};

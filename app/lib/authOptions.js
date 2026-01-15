@@ -1,18 +1,19 @@
 import CredentialsProvider from "next-auth/providers/credentials";
+import { loginUser } from "@/app/actions/server/auth";
 
 export const authOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "text" },
-        password: { label: "Password", type: "password" },
+        // email: { label: "Email", type: "text" },
+        // password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
         if (!credentials) return null;
-        console.log(credentials);
+        const user = await loginUser(credentials);
 
-        return null;
+        return user;
       },
     }),
   ],
