@@ -4,10 +4,13 @@ import { useState } from "react";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   const handleLogin = async (e) => {
     if (e && e.preventDefault) e.preventDefault();
@@ -18,6 +21,12 @@ const LoginPage = () => {
     });
 
     console.log(res);
+    if (res?.error)
+      Swal.fire("error", "Email or password is incorrect", "error");
+    if (res?.ok) {
+      router.push("/");
+      Swal.fire("success", "Login successful. Welcome to Hero Kidz", "success");
+    }
   };
 
   return (
