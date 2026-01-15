@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
-import { postUser } from "../actions/server/auth";
 import { useRouter } from "next/navigation";
+import { postUser } from "@/app/actions/server/auth";
 
 const RegisterPage = () => {
   const router = useRouter();

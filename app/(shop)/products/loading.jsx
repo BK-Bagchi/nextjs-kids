@@ -1,4 +1,4 @@
-import ProductSkeleton from "../components/skeleton/ProductSkeleton";
+import ProductSkeleton from "@/app/components/skeleton/ProductSkeleton";
 
 const loading = () => {
   return (

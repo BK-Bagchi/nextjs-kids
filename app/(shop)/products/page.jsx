@@ -1,5 +1,5 @@
+import Products from "@/app/components/home/Products";
 import React from "react";
-import Products from "../components/home/Products";
 
 export const metadata = {
   title: {

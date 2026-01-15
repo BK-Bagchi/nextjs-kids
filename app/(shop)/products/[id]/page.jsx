@@ -3,7 +3,6 @@ import Cart from "@/app/components/buttons/Cart";
 import Image from "next/image";
 import React from "react";
 import { FaStar } from "react-icons/fa";
-import { FaCartPlus } from "react-icons/fa6";
 
 const ProductDetails = async ({ params }) => {
   const resolvedParams = await params;
