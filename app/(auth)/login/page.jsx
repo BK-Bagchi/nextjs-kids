@@ -1,9 +1,25 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
+import { signIn } from "next-auth/react";
 
 const LoginPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    const res = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
+
+    console.log(res);
+  };
+
   return (
     <div className="mx-auto min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-white rounded-xl shadow p-8">
@@ -11,20 +27,28 @@ const LoginPage = () => {
           Login
         </h2>
 
-        <form className="space-y-4">
+        <form onSubmit={handleLogin} className="space-y-4">
           <input
             type="email"
             placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-full border rounded-md px-4 py-2 border-gray-500 text-gray-600 focus:outline-none focus:ring-2 focus:ring-primary"
           />
 
           <input
             type="password"
             placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             className="w-full border rounded-md px-4 py-2 border-gray-500 text-gray-600 focus:outline-none focus:ring-2 focus:ring-primary"
           />
 
-          <button className="w-full bg-primary text-white py-2 rounded-md hover:opacity-90">
+          <button
+            type="button"
+            onClick={handleLogin}
+            className="w-full bg-primary text-white py-2 rounded-md hover:opacity-90"
+          >
             Login
           </button>
         </form>
